@@ -17,7 +17,7 @@
 #define REVERSE_ROTATE_B 9
 #define REVERSE_ROTATE_A_B 10
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 #define NUM_OPERATIONS 11
 
@@ -42,11 +42,13 @@ typedef void (*Fptr)(Stack *stack_a, Stack *stack_b, Operation *operation);
 
 struct s_operation
 {
+	int num;
 	bool arr[NUM_OPERATIONS];
 	Fptr function[NUM_OPERATIONS];
 };
 
 void create_stack_a_and_b(int argc, char **argv, Stack *stack_a, Stack *stack_b);
+void print_stack(char stack_name, Num_list *top);
 
 // void find_biggest_num(Stack *stack_b);
 // void find_smallest_num(Stack *stack_a);

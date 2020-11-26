@@ -34,21 +34,6 @@ for (stack_a > 3 numbers)
 
 */
 
-void print_stack(char stack_name, Num_list *top)
-{
-	Num_list *tmp_top;
-
-	tmp_top = top;
-	printf("stack_%c top->	", stack_name);
-	while (tmp_top != NULL)
-	{
-		printf("%d ", tmp_top->num);
-		tmp_top = tmp_top->next;
-	}
-	printf("|bottom\n");
-	return;
-}
-
 bool sorted(Num_list *top)
 {
 	// static int i = 0;
@@ -98,21 +83,23 @@ void define_operation(char stack_name, Stack *stack, Operation *operation)
 	return;
 }
 
-void execute_operation(Stack *stack_a, Stack *stack_b, Operation *operation)
+bool execute_operation(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
-
 	int i;
+	bool ret;
 
 	i = 0;
+	ret = false;
 	while (i < NUM_OPERATIONS)
 	{
 		if (operation->arr[i] == true)
 		{
 			operation->function[i](stack_a, stack_b, operation);
+			ret = true;
 		}
 		i++;
 	}
-	return;
+	return ret;
 }
 
 void sort_three_nums(Stack *stack_a, Operation *operation)
@@ -131,47 +118,60 @@ void sort_three_nums(Stack *stack_a, Operation *operation)
 	return;
 }
 
+/*
+while (more then 3 nums on stack_a)
+{
+	find min on stack_a(first two and last number)
+	find max on stack_b(first two and last number)
+	if (stack_a->min > stack_b->max)
+	{
+		pb stack_a->min
+	}
+	if (stack_a->min < stack_b->max)
+	{
+		stack_a->min to top
+		pa stack_b->max
+	}
+}
+*/
+
+bool three_nums_on_stack(Stack *stack)
+{
+	if (stack->top && stack->top->next && stack->top->next->next)
+		return true;
+	return false;
+}
+
 void sort(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
+	bool changing_top;
+
+	changing_top = true;
 	while (stack_a->top->next->next->next != NULL)
 	{
-		if (VERBOSE)
+		while (changing_top)
 		{
-			printf("\n");
-			print_stack('a', stack_a->top);
-			print_stack('b', stack_b->top);
+			find_min_num(stack_a);
+			find_min_num(stack_b);
+			find_max_num(stack_b);
+			define_operation('a', stack_a, operation);
+			define_operation('b', stack_b, operation);
+			changing_top = execute_operation(stack_a, stack_b, operation);
 		}
-		find_min_num(stack_a);
-		find_min_num(stack_b);
-		find_max_num(stack_b);
-		define_operation('a', stack_a, operation);
-		define_operation('b', stack_b, operation);
-		execute_operation(stack_a, stack_b, operation);
-		push_b(stack_a, stack_b, operation);
-	}
-	if (VERBOSE)
-	{
-		printf("\n");
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		if (!three_nums_on_stack(stack_b) || !stack_b->max || (stack_b->max && stack_a->min->num > stack_b->max->num))
+			push_b(stack_a, stack_b, operation);
+		else if (three_nums_on_stack(stack_b) && stack_b->max && stack_a->min->num < stack_b->max->num)
+		{
+			push_a(stack_a, stack_b, operation);
+		}
+		stack_b->max = NULL;
+		changing_top = true;
 	}
 	find_min_num(stack_a);
 	find_max_num(stack_a);
 	sort_three_nums(stack_a, operation);
-	if (VERBOSE)
-	{
-		printf("\n");
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
-	}
 	while (stack_b->top != NULL)
 	{
-		if (VERBOSE)
-		{
-			printf("\n");
-			print_stack('a', stack_a->top);
-			print_stack('b', stack_b->top);
-		}
 		find_min_num(stack_a);
 		find_max_num(stack_b);
 		define_operation('a', stack_a, operation);
@@ -179,15 +179,12 @@ void sort(Stack *stack_a, Stack *stack_b, Operation *operation)
 		execute_operation(stack_a, stack_b, operation);
 		push_a(stack_a, stack_b, operation);
 	}
-	if (VERBOSE)
-	{
-		print_stack('a', stack_a->top);
-	}
 	return;
 }
 
 void set_operation_functions(Operation *operation)
 {
+	operation->num = 0;
 	operation->function[SWAP_A] = swap_a;
 	operation->function[SWAP_B] = swap_b;
 	operation->function[SWAP_A_B] = swap_a_and_b;
@@ -222,6 +219,7 @@ int main(int argc, char **argv)
 		i++;
 	}
 	printf("%d\n", i);
+	printf("%d\n", operation.num);
 	return 0;
 }
 

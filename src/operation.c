@@ -23,11 +23,16 @@ void swap_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 		swap_a_and_b(stack_a, stack_b, operation);
 		return;
 	}
+	operation->num++;
 	swap(stack_a);
 	operation->arr[SWAP_A] = false;
 	printf("sa");
 	if (VERBOSE)
-		printf(" - swap %d, %d", stack_a->top->next->num, stack_a->top->num);
+	{
+		printf(" - swap %d, %d\n", stack_a->top->next->num, stack_a->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 	return;
 }
@@ -39,17 +44,23 @@ void swap_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 		swap_a_and_b(stack_a, stack_b, operation);
 		return;
 	}
+	operation->num++;
 	swap(stack_b);
 	operation->arr[SWAP_B] = false;
 	printf("sb");
 	if (VERBOSE)
-		printf(" - swap %d, %d", stack_b->top->next->num, stack_b->top->num);
+	{
+		printf(" - swap %d, %d\n", stack_b->top->next->num, stack_b->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 	return;
 }
 
 void swap_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
+	operation->num++;
 	printf("ss");
 	swap(stack_a);
 	swap(stack_b);
@@ -58,7 +69,9 @@ void swap_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 		printf(":\nsa");
 		printf(" - swap %d, %d\n", stack_a->top->next->num, stack_a->top->num);
 		printf("sb");
-		printf(" - swap %d, %d", stack_b->top->next->num, stack_b->top->num);
+		printf(" - swap %d, %d\n", stack_b->top->next->num, stack_b->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
 	}
 	printf("\n");
 
@@ -82,11 +95,18 @@ void push(Stack *to, Stack *from)
 
 void push_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
+	operation->num++;
 	push(stack_a, stack_b);
 	operation->arr[PUSH_A] = false;
+	if (stack_b->top == NULL)
+		stack_b->bottom = NULL;
 	printf("pa");
 	if (VERBOSE)
-		printf(" - %d to stack_a", stack_a->top->num);
+	{
+		printf(" - %d to stack_a\n", stack_a->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 	return;
 }
@@ -99,6 +119,7 @@ void push_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 
 void push_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
+	operation->num++;
 	push(stack_b, stack_a);
 	operation->arr[PUSH_B] = false;
 	if (stack_b->bottom == NULL)
@@ -107,7 +128,11 @@ void push_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	}
 	printf("pb");
 	if (VERBOSE)
-		printf(" - %d to stack_b", stack_b->top->num);
+	{
+		printf(" - %d to stack_b\n", stack_b->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 	return;
 }
@@ -132,11 +157,16 @@ void rotate_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 		rotate_a_and_b(stack_a, stack_b, operation);
 		return;
 	}
+	operation->num++;
 	rotate(stack_a);
 	operation->arr[ROTATE_A] = false;
 	printf("ra");
 	if (VERBOSE)
-		printf(" - %d to the bottom of stack_a", stack_a->bottom->num);
+	{
+		printf(" - %d to the bottom of stack_a\n", stack_a->bottom->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 	return;
 }
@@ -148,17 +178,23 @@ void rotate_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 		rotate_a_and_b(stack_a, stack_b, operation);
 		return;
 	}
+	operation->num++;
 	rotate(stack_b);
 	operation->arr[ROTATE_B] = false;
 	printf("rb");
 	if (VERBOSE)
-		printf(" - %d to the bottom of stack_b", stack_b->bottom->num);
+	{
+		printf(" - %d to the bottom of stack_b\n", stack_b->bottom->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 	return;
 }
 
 void rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
+	operation->num++;
 	printf("rr");
 	rotate(stack_a);
 	rotate(stack_b);
@@ -167,7 +203,9 @@ void rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(":\nra - %d to the bottom of stack_a\n", stack_a->bottom->num);
-		printf("rb - %d to the bottom of stack_b", stack_b->bottom->num);
+		printf("rb - %d to the bottom of stack_b\n", stack_b->bottom->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -199,11 +237,16 @@ void reverse_rotate_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 		reverse_rotate_a_and_b(stack_a, stack_b, operation);
 		return;
 	}
+	operation->num++;
 	reverse_rotate(stack_a);
 	operation->arr[REVERSE_ROTATE_A] = false;
 	printf("rra");
 	if (VERBOSE)
-		printf(" - %d to the top of stack_a", stack_a->top->num);
+	{
+		printf(" - %d to the top of stack_a\n", stack_a->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 	return;
 }
@@ -215,11 +258,16 @@ void reverse_rotate_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 		reverse_rotate_a_and_b(stack_a, stack_b, operation);
 		return;
 	}
+	operation->num++;
 	reverse_rotate(stack_b);
 	operation->arr[REVERSE_ROTATE_B] = false;
 	printf("rrb");
 	if (VERBOSE)
-		printf(" - %d to the top of stack_b", stack_b->top->num);
+	{
+		printf(" - %d to the top of stack_b\n", stack_b->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
+	}
 	printf("\n");
 
 	return;
@@ -227,6 +275,7 @@ void reverse_rotate_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 
 void reverse_rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
+	operation->num++;
 	printf("rrr");
 	reverse_rotate(stack_a);
 	reverse_rotate(stack_b);
@@ -235,7 +284,9 @@ void reverse_rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation
 	if (VERBOSE)
 	{
 		printf(":\nrra - %d to the top of stack_a\n", stack_a->top->num);
-		printf("rrb - %d to the top of stack_b", stack_b->top->num);
+		printf("rrb - %d to the top of stack_b\n", stack_b->top->num);
+		print_stack('a', stack_a->top);
+		print_stack('b', stack_b->top);
 	}
 	printf("\n");
 	return;
