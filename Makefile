@@ -5,7 +5,6 @@ CXXFLAGS = -Wall -Wextra -Werror -g
 FILES =	main \
 				create_stack_a_and_b \
 				print_stack \
-				find_num \
 				operation
 
 HEADERS =	push_swap

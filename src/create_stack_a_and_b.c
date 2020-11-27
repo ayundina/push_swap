@@ -68,8 +68,8 @@ void set_default_stack(Stack *stack)
 {
 	stack->top = NULL;
 	stack->bottom = NULL;
-	stack->min = NULL;
-	stack->max = NULL;
+	// stack->min = NULL;
+	// stack->max = NULL;
 	return;
 }
 

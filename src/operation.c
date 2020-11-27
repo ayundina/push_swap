@@ -1,5 +1,10 @@
 #include "push_swap.h"
 
+/*
+** 20->13->7
+** 13->20->7
+*/
+
 void swap(Stack *stack)
 {
 	Num_list *tmp;
@@ -12,9 +17,6 @@ void swap(Stack *stack)
 		stack->bottom = stack->top->next;
 	return;
 }
-
-//20->13->7
-//13->20->7
 
 void swap_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
@@ -30,6 +32,7 @@ void swap_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(" - swap %d, %d\n", stack_a->top->next->num, stack_a->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -51,6 +54,7 @@ void swap_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(" - swap %d, %d\n", stack_b->top->next->num, stack_b->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -70,6 +74,7 @@ void swap_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 		printf(" - swap %d, %d\n", stack_a->top->next->num, stack_a->top->num);
 		printf("sb");
 		printf(" - swap %d, %d\n", stack_b->top->next->num, stack_b->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -79,6 +84,14 @@ void swap_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	operation->arr[SWAP_B] = false;
 	return;
 }
+
+/*
+** 3->1->2 from
+** 4->5->6 to
+**
+** 1->2
+** 3->4->5->6
+*/
 
 void push(Stack *to, Stack *from)
 {
@@ -90,6 +103,8 @@ void push(Stack *to, Stack *from)
 	tmp_next = to->top;
 	to->top = tmp_top;
 	to->top->next = tmp_next;
+	if (to->bottom == NULL)
+		to->bottom = to->top;
 	return;
 }
 
@@ -104,32 +119,28 @@ void push_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(" - %d to stack_a\n", stack_a->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
 	printf("\n");
 	return;
 }
-
-// 20->13->7
-// 10->12->45
-
-// 10->20->13->7
-// 12->45
 
 void push_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
 	operation->num++;
 	push(stack_b, stack_a);
 	operation->arr[PUSH_B] = false;
-	if (stack_b->bottom == NULL)
-	{
-		stack_b->bottom = stack_b->top;
-	}
+	// if (stack_b->bottom == NULL)
+	// {
+	// 	stack_b->bottom = stack_b->top;
+	// }
 	printf("pb");
 	if (VERBOSE)
 	{
 		printf(" - %d to stack_b\n", stack_b->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -137,9 +148,12 @@ void push_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	return;
 }
 
+/*
+** The first becomes the last.
+*/
+
 void rotate(Stack *stack)
 {
-	// The first element becomes the last one.
 	Num_list *tmp_top;
 
 	tmp_top = stack->top;
@@ -164,6 +178,7 @@ void rotate_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(" - %d to the bottom of stack_a\n", stack_a->bottom->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -185,6 +200,7 @@ void rotate_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(" - %d to the bottom of stack_b\n", stack_b->bottom->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -204,6 +220,7 @@ void rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(":\nra - %d to the bottom of stack_a\n", stack_a->bottom->num);
 		printf("rb - %d to the bottom of stack_b\n", stack_b->bottom->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -211,9 +228,12 @@ void rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	return;
 }
 
+/*
+** The last element becomes the first one.
+*/
+
 void reverse_rotate(Stack *stack)
 {
-	// The last element becomes the first one.
 	Num_list *tmp_top;
 	Num_list *tmp_bottom;
 
@@ -244,6 +264,7 @@ void reverse_rotate_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(" - %d to the top of stack_a\n", stack_a->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -265,6 +286,7 @@ void reverse_rotate_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	if (VERBOSE)
 	{
 		printf(" - %d to the top of stack_b\n", stack_b->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}
@@ -285,6 +307,7 @@ void reverse_rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation
 	{
 		printf(":\nrra - %d to the top of stack_a\n", stack_a->top->num);
 		printf("rrb - %d to the top of stack_b\n", stack_b->top->num);
+		printf("operation number %d\n", operation->num);
 		print_stack('a', stack_a->top);
 		print_stack('b', stack_b->top);
 	}

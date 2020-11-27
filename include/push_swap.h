@@ -31,10 +31,6 @@ typedef struct s_stack
 {
 	Num_list *top;
 	Num_list *bottom;
-	Num_list *min;
-	Num_list *max;
-	// int size;
-	// bool operation[NUM_OPERATIONS];
 } Stack;
 
 typedef struct s_operation Operation;
@@ -49,11 +45,6 @@ struct s_operation
 
 void create_stack_a_and_b(int argc, char **argv, Stack *stack_a, Stack *stack_b);
 void print_stack(char stack_name, Num_list *top);
-
-// void find_biggest_num(Stack *stack_b);
-// void find_smallest_num(Stack *stack_a);
-void find_min_num(Stack *stack_a);
-void find_max_num(Stack *stack_b);
 
 void swap_a(Stack *stack_a, Stack *stack_b, Operation *operation);
 void swap_b(Stack *stack_a, Stack *stack_b, Operation *operation);
