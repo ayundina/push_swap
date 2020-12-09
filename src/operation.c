@@ -113,6 +113,8 @@ void push_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	operation->num++;
 	push(stack_a, stack_b);
 	operation->arr[PUSH_A] = false;
+	stack_b->size--;
+	stack_a->size++;
 	if (stack_b->top == NULL)
 		stack_b->bottom = NULL;
 	printf("pa");
@@ -132,10 +134,8 @@ void push_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	operation->num++;
 	push(stack_b, stack_a);
 	operation->arr[PUSH_B] = false;
-	// if (stack_b->bottom == NULL)
-	// {
-	// 	stack_b->bottom = stack_b->top;
-	// }
+	stack_b->size++;
+	stack_a->size--;
 	printf("pb");
 	if (VERBOSE)
 	{

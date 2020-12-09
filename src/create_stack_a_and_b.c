@@ -10,7 +10,7 @@ void free_num_list(Num_list **top)
 {
 	Num_list *tmp_top;
 
-	while (top != NULL)
+	while (*top != NULL)
 	{
 		tmp_top = *top;
 		*top = (*top)->next;
@@ -68,8 +68,8 @@ void set_default_stack(Stack *stack)
 {
 	stack->top = NULL;
 	stack->bottom = NULL;
-	// stack->min = NULL;
-	// stack->max = NULL;
+	stack->min = NULL;
+	stack->size = 0;
 	return;
 }
 
@@ -80,6 +80,7 @@ void create_stack_a_and_b(int argc, char **argv, Stack *stack_a, Stack *stack_b)
 		set_default_stack(stack_a);
 		set_default_stack(stack_b);
 		copy_arguments_to_stack_a(argc, argv, &stack_a->top, &stack_a->bottom);
+		stack_a->size = argc - 1;
 		return;
 	}
 	ft_printf("Error: not enough arguments.\n");

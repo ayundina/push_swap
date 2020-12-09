@@ -31,6 +31,8 @@ typedef struct s_stack
 {
 	Num_list *top;
 	Num_list *bottom;
+	Num_list *min;
+	int size;
 } Stack;
 
 typedef struct s_operation Operation;
@@ -45,6 +47,7 @@ struct s_operation
 
 void create_stack_a_and_b(int argc, char **argv, Stack *stack_a, Stack *stack_b);
 void print_stack(char stack_name, Num_list *top);
+void free_num_list(Num_list **top);
 
 void swap_a(Stack *stack_a, Stack *stack_b, Operation *operation);
 void swap_b(Stack *stack_a, Stack *stack_b, Operation *operation);
