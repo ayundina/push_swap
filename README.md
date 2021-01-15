@@ -3,12 +3,12 @@
 ## Clone
 To copy on your Desktop
 ```
-cd ~/Desktop; git clone ...
+cd ~/Desktop; git clone https://github.com/ayundina/push_swap.git
 ```
 ## Build and Run
 ```
 cd ~/Desctop/push_swap; make
-./push_swap ...
+./push_swap $(./random_int_set 1 25)
 ```
 ## Summary
 Sort data on a stack, with a set of instructions, using the lowest possible number of actions. It requires to manipulate various types of algorithms and choose the one (of many) most appropriate solution for an optimized data sorting.
@@ -42,16 +42,7 @@ Operations to use for sorting:
 - **rrb** : reverse rotate **b** - shift down all elements of stack **a** by 1. The last element becomes the first one.
 - **rrr** : **rra** and **rrb** at the same time.
 
-
-## Notes (delete later)
-- from one integers configuration to another, the most efficient sorting algorithm can differ
-- fast sort O(n log(n))
-- To get really good with algorithms, you should have up to high school math. For example, asymptotics might involve the properties of logarithms. Calculus would also be helpful. To be truly superb with algorithms, probability, linear algebra, discrete math, and multivariate calculus are all pretty good to have (like, on the level of machine learning).
-
-1. **a** - max values go to bottom
-2. **b** - min values go to bottom
-3. swap top values accordingly
-
-## Resources
-Khan Academy - [Algorithms course](https://www.khanacademy.org/computing/computer-science/algorithms)<br>
+## Note
+Khan Academy - [Algorithms course](https://www.khanacademy.org/computing/computer-science/algorithms)
 Wikipedia - [Analysis of Algorithms](https://en.wikipedia.org/wiki/Analysis_of_algorithms)
+This project is not finished.

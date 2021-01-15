@@ -41,35 +41,61 @@ void check_value(char *s, Num_list **top)
 	exit(0);
 }
 
+bool take_bottom_number(int argc, char **argv, int *number, Num_list **top)
+{
+	static int i;
+	static int j;
+
+	if (j < 0)
+		return false;
+	if (i == 0)
+	{
+		i = argc - 1;
+		j = ft_strlen(argv[i]) - 1;
+	}
+	while (ft_isdigit(argv[i][j]) && j >= 0)
+		j--;
+	check_value(&argv[i][j + 1], top);
+	*number = ft_atoi(&argv[i][j + 1]);
+	if (j > 0)
+	{
+		j--;
+	}
+	else if (i > 1)
+	{
+		i--;
+		j = ft_strlen(argv[i]) - 1;
+	}
+	return true;
+}
+
 void copy_arguments_to_stack_a(int argc, char **argv, Num_list **top, Num_list **bottom)
 {
-	int i;
+	int number;
 	Num_list *tmp_top;
 
-	i = argc - 1;
 	tmp_top = NULL;
-	while (i > 0)
+	while (take_bottom_number(argc, argv, &number, top))
 	{
 		//check for repetitions
 
-		check_value(argv[i], top);
 		memory_allocation(top, &tmp_top);
-		(*top)->num = ft_atoi(argv[i]);
+		(*top)->num = number;
 		(*top)->next = tmp_top;
 		tmp_top = *top;
 		if ((*top)->next == NULL)
 			*bottom = *top;
-		i--;
 	}
 	return;
 }
 
-void set_default_stack(Stack *stack)
+void set_default_stack(Stack *stack, char name)
 {
 	stack->top = NULL;
 	stack->bottom = NULL;
 	stack->min = NULL;
 	stack->size = 0;
+	stack->name = name;
 	return;
 }
 
@@ -77,8 +103,8 @@ void create_stack_a_and_b(int argc, char **argv, Stack *stack_a, Stack *stack_b)
 {
 	if (argc > 1)
 	{
-		set_default_stack(stack_a);
-		set_default_stack(stack_b);
+		set_default_stack(stack_a, 'a');
+		set_default_stack(stack_b, 'b');
 		copy_arguments_to_stack_a(argc, argv, &stack_a->top, &stack_a->bottom);
 		stack_a->size = argc - 1;
 		return;

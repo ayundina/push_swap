@@ -33,6 +33,7 @@ typedef struct s_stack
 	Num_list *bottom;
 	Num_list *min;
 	int size;
+	char name;
 } Stack;
 
 typedef struct s_operation Operation;

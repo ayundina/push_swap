@@ -33,8 +33,9 @@ void swap_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - swap %d, %d\n", stack_a->top->next->num, stack_a->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -55,8 +56,9 @@ void swap_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - swap %d, %d\n", stack_b->top->next->num, stack_b->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -75,8 +77,9 @@ void swap_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 		printf("sb");
 		printf(" - swap %d, %d\n", stack_b->top->next->num, stack_b->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 
@@ -122,8 +125,9 @@ void push_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - %d to stack_a\n", stack_a->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -141,8 +145,9 @@ void push_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - %d to stack_b\n", stack_b->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -179,8 +184,9 @@ void rotate_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - %d to the bottom of stack_a\n", stack_a->bottom->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -201,8 +207,9 @@ void rotate_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - %d to the bottom of stack_b\n", stack_b->bottom->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -221,8 +228,9 @@ void rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 		printf(":\nra - %d to the bottom of stack_a\n", stack_a->bottom->num);
 		printf("rb - %d to the bottom of stack_b\n", stack_b->bottom->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -265,8 +273,9 @@ void reverse_rotate_a(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - %d to the top of stack_a\n", stack_a->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;
@@ -287,8 +296,9 @@ void reverse_rotate_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	{
 		printf(" - %d to the top of stack_b\n", stack_b->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 
@@ -308,8 +318,9 @@ void reverse_rotate_a_and_b(Stack *stack_a, Stack *stack_b, Operation *operation
 		printf(":\nrra - %d to the top of stack_a\n", stack_a->top->num);
 		printf("rrb - %d to the top of stack_b\n", stack_b->top->num);
 		printf("operation number %d\n", operation->num);
-		print_stack('a', stack_a->top);
-		print_stack('b', stack_b->top);
+		print_stack(stack_a->name, stack_a->top);
+		if (stack_a != stack_b)
+			print_stack(stack_b->name, stack_b->top);
 	}
 	printf("\n");
 	return;

@@ -1,18 +1,24 @@
-NAME = push_swap
+PUSH_SWAP = push_swap
+INT_GENERATOR = random_int_set
 CXX = gcc
 CXXFLAGS = -Wall -Wextra -Werror -g
 
-FILES =	main \
+PS_FILES =	main \
 				create_stack_a_and_b \
 				print_stack \
-				operation
+				operation \
+
+IG_FILES = int_set_generator
 
 HEADERS =	push_swap
 
 SRCFOLDER = src
-SRC = $(FILES:%=$(SRCFOLDER)/%.c)
+PS_SRC = $(PS_FILES:%=$(SRCFOLDER)/%.c)
+IG_SRC = $(IG_FILES:%=$(SRCFOLDER)/%.c)
+
 OBJFOLDER = obj
-OBJ = $(FILES:%=$(OBJFOLDER)/%.o)
+PS_OBJ = $(PS_FILES:%=$(OBJFOLDER)/%.o)
+IG_OBJ = $(IG_FILES:%=$(OBJFOLDER)/%.o)
 
 INCLFOLDER = include
 INCLUDE = $(HEADERS:%=$(INCLFOLDER)/%.h)
@@ -25,28 +31,34 @@ RM = rm -f
 GREEN = \033[32m
 NC = \033[0m
 
-all: $(NAME)
+all: $(OBJFOLDER) $(PUSH_SWAP) $(INT_GENERATOR)
 
-$(NAME): $(OBJ) $(LIBFT)
-	@ echo "${GREEN}	Compiled object files${NC}"
-	$(CXX) $(CXXFLAGS) -I $(INCLFOLDER) $(OBJ) -o $(NAME) -L $(LIBFTFOLDER) -lft
-	@ echo "${GREEN}	Compiled" $(NAME) "${NC}"
+$(OBJFOLDER):
+	@ mkdir -p $(OBJFOLDER)
 
 $(OBJFOLDER)/%.o : $(SRCFOLDER)/%.c $(INCLUDE)
-	@ mkdir -p $(OBJFOLDER)
 	$(CXX) $(CXXFLAGS) -I $(INCLFOLDER) -I $(LIBFTINCLFOLDER) $< -c -o $@
+
+$(PUSH_SWAP): $(PS_OBJ) $(LIBFT)
+	@ echo "${GREEN}	Compiled object files${NC}"
+	$(CXX) $(CXXFLAGS) -I $(INCLFOLDER) $(PS_OBJ) -o $(PUSH_SWAP) -L $(LIBFTFOLDER) -lft
+	@ echo "${GREEN}	Compiled" $(PUSH_SWAP) "${NC}"
 
 $(LIBFT):
 	@ make -C $(LIBFTFOLDER)
 
+$(INT_GENERATOR): $(IG_OBJ)
+	$(CXX) $(CXXFLAGS) -I $(INCLFOLDER) $(IG_OBJ) -o $(INT_GENERATOR)
+	@ echo "${GREEN}	Compiled" $(INT_GENERATOR) "${NC}"
+
 clean:
 	@ make clean -C $(LIBFTFOLDER)
-	@ $(RM) $(OBJ)
+	@ $(RM) -rf $(OBJFOLDER)
 	@ echo "${GREEN}	Cleaned objects${NC}"
 
 fclean: clean
 	@ make fclean -C $(LIBFTFOLDER)
-	@ $(RM) $(NAME)
-	@ echo "${GREEN}	Cleaned" $(NAME) "${NC}"
+	@ $(RM) $(PUSH_SWAP) $(INT_GENERATOR)
+	@ echo "${GREEN}	Cleaned" $(PUSH_SWAP) $(INT_GENERATOR) "${NC}"
 
 re: fclean all

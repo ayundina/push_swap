@@ -21,129 +21,129 @@
 // 	return true;
 // }
 
-void set_swap_operation(char stack_name, Operation *operation)
-{
-	if (stack_name == 'a')
-		operation->arr[SWAP_A] = true;
-	else
-		operation->arr[SWAP_B] = true;
-	return;
-}
+// void set_swap_operation(char stack_name, Operation *operation)
+// {
+// 	if (stack_name == 'a')
+// 		operation->arr[SWAP_A] = true;
+// 	else
+// 		operation->arr[SWAP_B] = true;
+// 	return;
+// }
 
-void set_rotate_operation(char stack_name, Operation *operation)
-{
-	if (stack_name == 'a')
-		operation->arr[ROTATE_A] = true;
-	else
-		operation->arr[ROTATE_B] = true;
-	return;
-}
+// void set_rotate_operation(char stack_name, Operation *operation)
+// {
+// 	if (stack_name == 'a')
+// 		operation->arr[ROTATE_A] = true;
+// 	else
+// 		operation->arr[ROTATE_B] = true;
+// 	return;
+// }
 
-void set_reverse_rotate_operation(char stack_name, Operation *operation)
-{
-	if (stack_name == 'a')
-		operation->arr[REVERSE_ROTATE_A] = true;
-	else
-		operation->arr[REVERSE_ROTATE_B] = true;
-	return;
-}
+// void set_reverse_rotate_operation(char stack_name, Operation *operation)
+// {
+// 	if (stack_name == 'a')
+// 		operation->arr[REVERSE_ROTATE_A] = true;
+// 	else
+// 		operation->arr[REVERSE_ROTATE_B] = true;
+// 	return;
+// }
 
-void place_min_num_on_top(char stack_name, Stack *stack, Operation *operation)
-{
-	if (stack->top->num < stack->top->next->num &&
-			stack->top->num < stack->bottom->num)
-		return;
-	else if (stack->top->next->num < stack->top->num &&
-					 stack->top->next->num < stack->bottom->num)
-	{
-		set_swap_operation(stack_name, operation);
-	}
-	else
-	{
-		set_reverse_rotate_operation(stack_name, operation);
-	}
-	return;
-}
+// void place_min_num_on_top(char stack_name, Stack *stack, Operation *operation)
+// {
+// 	if (stack->top->num < stack->top->next->num &&
+// 			stack->top->num < stack->bottom->num)
+// 		return;
+// 	else if (stack->top->next->num < stack->top->num &&
+// 					 stack->top->next->num < stack->bottom->num)
+// 	{
+// 		set_swap_operation(stack_name, operation);
+// 	}
+// 	else
+// 	{
+// 		set_reverse_rotate_operation(stack_name, operation);
+// 	}
+// 	return;
+// }
 
-void place_max_num_on_top(char stack_name, Stack *stack, Operation *operation)
-{
-	if (stack->top->num > stack->top->next->num &&
-			stack->top->num > stack->bottom->num)
-		return;
-	else if (stack->top->next->num > stack->top->num &&
-					 stack->top->next->num > stack->bottom->num)
-	{
-		set_swap_operation(stack_name, operation);
-	}
-	else
-	{
-		set_reverse_rotate_operation(stack_name, operation);
-	}
-	return;
-}
+// void place_max_num_on_top(char stack_name, Stack *stack, Operation *operation)
+// {
+// 	if (stack->top->num > stack->top->next->num &&
+// 			stack->top->num > stack->bottom->num)
+// 		return;
+// 	else if (stack->top->next->num > stack->top->num &&
+// 					 stack->top->next->num > stack->bottom->num)
+// 	{
+// 		set_swap_operation(stack_name, operation);
+// 	}
+// 	else
+// 	{
+// 		set_reverse_rotate_operation(stack_name, operation);
+// 	}
+// 	return;
+// }
 
-void place_max_num_on_bottom(char stack_name, Stack *stack, Operation *operation)
-{
-	if (stack->bottom->num > stack->top->num)
-		return;
-	else
-		set_rotate_operation(stack_name, operation);
-	return;
-}
+// void place_max_num_on_bottom(char stack_name, Stack *stack, Operation *operation)
+// {
+// 	if (stack->bottom->num > stack->top->num)
+// 		return;
+// 	else
+// 		set_rotate_operation(stack_name, operation);
+// 	return;
+// }
 
-bool execute_operation(Stack *stack_a, Stack *stack_b, Operation *operation)
-{
-	int i;
-	bool ret;
+// bool execute_operation(Stack *stack_a, Stack *stack_b, Operation *operation)
+// {
+// 	int i;
+// 	bool ret;
 
-	i = 0;
-	ret = false;
-	while (i < NUM_OPERATIONS)
-	{
-		if (operation->arr[i] == true)
-		{
-			operation->function[i](stack_a, stack_b, operation);
-			ret = true;
-		}
-		i++;
-	}
-	return ret;
-}
+// 	i = 0;
+// 	ret = false;
+// 	while (i < NUM_OPERATIONS)
+// 	{
+// 		if (operation->arr[i] == true)
+// 		{
+// 			operation->function[i](stack_a, stack_b, operation);
+// 			ret = true;
+// 		}
+// 		i++;
+// 	}
+// 	return ret;
+// }
 
-void sort_three_nums(char stack_name, Stack *stack, Operation *operation)
-{
-	while (stack->top->next->num < stack->top->num ||
-				 stack->top->next->num > stack->bottom->num)
-	{
-		if (stack->top->num > stack->top->next->num && stack->top->num > stack->bottom->num)
-			stack_name == 'a' ? rotate_a(stack, stack, operation) : rotate_b(stack, stack, operation);
-		if (stack->bottom->num > stack->top->num &&
-				stack->bottom->num > stack->top->next->num &&
-				stack->top->next->num < stack->top->num &&
-				stack->top->next->num < stack->bottom->num)
-			stack_name == 'a' ? swap_a(stack, stack, operation) : swap_b(stack, stack, operation);
-		if (stack->top->next->num > stack->top->num &&
-				stack->top->next->num > stack->bottom->num &&
-				stack->top->num < stack->top->next->num &&
-				stack->top->num < stack->bottom->num)
-			stack_name == 'a' ? swap_a(stack, stack, operation) : swap_b(stack, stack, operation);
-		if (stack->top->next->num > stack->top->num &&
-				stack->top->next->num > stack->bottom->num &&
-				stack->bottom->num < stack->top->num &&
-				stack->bottom->num < stack->top->next->num)
-			stack_name == 'a' ? reverse_rotate_a(stack, stack, operation) : reverse_rotate_b(stack, stack, operation);
-	}
-	stack->min = stack->top;
-	return;
-}
+// void sort_three_nums(char stack_name, Stack *stack, Operation *operation)
+// {
+// 	while (stack->top->next->num < stack->top->num ||
+// 				 stack->top->next->num > stack->bottom->num)
+// 	{
+// 		if (stack->top->num > stack->top->next->num && stack->top->num > stack->bottom->num)
+// 			stack_name == 'a' ? rotate_a(stack, stack, operation) : rotate_b(stack, stack, operation);
+// 		if (stack->bottom->num > stack->top->num &&
+// 				stack->bottom->num > stack->top->next->num &&
+// 				stack->top->next->num < stack->top->num &&
+// 				stack->top->next->num < stack->bottom->num)
+// 			stack_name == 'a' ? swap_a(stack, stack, operation) : swap_b(stack, stack, operation);
+// 		if (stack->top->next->num > stack->top->num &&
+// 				stack->top->next->num > stack->bottom->num &&
+// 				stack->top->num < stack->top->next->num &&
+// 				stack->top->num < stack->bottom->num)
+// 			stack_name == 'a' ? swap_a(stack, stack, operation) : swap_b(stack, stack, operation);
+// 		if (stack->top->next->num > stack->top->num &&
+// 				stack->top->next->num > stack->bottom->num &&
+// 				stack->bottom->num < stack->top->num &&
+// 				stack->bottom->num < stack->top->next->num)
+// 			stack_name == 'a' ? reverse_rotate_a(stack, stack, operation) : reverse_rotate_b(stack, stack, operation);
+// 	}
+// 	stack->min = stack->top;
+// 	return;
+// }
 
-void push_max_num_to_b(Stack *stack_a, Stack *stack_b, Operation *operation)
-{
-	place_max_num_on_top('a', stack_a, operation);
-	execute_operation(stack_a, stack_b, operation);
-	push_b(stack_a, stack_b, operation);
-	return;
-}
+// void push_max_num_to_b(Stack *stack_a, Stack *stack_b, Operation *operation)
+// {
+// 	place_max_num_on_top('a', stack_a, operation);
+// 	execute_operation(stack_a, stack_b, operation);
+// 	push_b(stack_a, stack_b, operation);
+// 	return;
+// }
 
 /*
 find index of insertion
@@ -186,10 +186,9 @@ void find_insertion_place(int num_to_insert, Stack *stack_b, Operation *operatio
 
 	tmp = stack_b->top;
 	index = 0;
-	// if ((num_to_insert > stack_b->top->num && num_to_insert > stack_b->bottom->num) ||
-	// 		(num_to_insert < stack_b->top->num && num_to_insert < stack_b->bottom->num))
-	// 	return;
 	if (stack_b->min == tmp && num_to_insert < tmp->num)
+		return;
+	if (num_to_insert < stack_b->top->num && num_to_insert > stack_b->bottom->num)
 		return;
 	while (tmp->next != NULL)
 	{
@@ -206,11 +205,90 @@ void find_insertion_place(int num_to_insert, Stack *stack_b, Operation *operatio
 	return;
 }
 
+int num_moves_for_insertion(int num_to_insert, Stack *stack_b)
+{
+	Num_list *tmp;
+	int index;
+
+	tmp = stack_b->top;
+	index = 0;
+	if (stack_b->min == tmp && (num_to_insert < tmp->num || num_to_insert > stack_b->bottom->num))
+		return index;
+	if (num_to_insert < stack_b->top->num && num_to_insert > stack_b->bottom->num)
+		return index;
+	while (tmp->next != NULL)
+	{
+		index++;
+		if ((num_to_insert > tmp->num && num_to_insert < tmp->next->num) ||
+				(stack_b->min == tmp->next && (num_to_insert < tmp->next->num ||
+																			 (num_to_insert > tmp->num && num_to_insert > tmp->next->num))))
+		{
+			if (stack_b->size / 2 >= index)
+			{
+				return index;
+			}
+			else if (stack_b->size / 2 < index)
+			{
+				return stack_b->size - index;
+			}
+		}
+		tmp = tmp->next;
+	}
+	return index;
+}
+
+bool is_better_num(Stack *stack_a, Stack *stack_b, Operation *operation, int run)
+{
+	int top;
+	int next;
+	int bottom;
+
+	top = num_moves_for_insertion(stack_a->top->num, stack_b);
+	next = num_moves_for_insertion(stack_a->top->next->num, stack_b);
+	bottom = num_moves_for_insertion(stack_a->bottom->num, stack_b);
+	if ((top <= next && top <= bottom) || (run == 2 && top <= next))
+	{
+		return false;
+	}
+	else if ((next <= top && next <= bottom) || (run == 2 && next <= top))
+	{
+		swap_a(stack_a, stack_a, operation);
+		return true;
+	}
+	else if (run == 1 && bottom <= top && bottom <= next)
+	{
+		reverse_rotate_a(stack_a, stack_a, operation);
+		return true;
+	}
+	return false;
+}
+
+void find_num_to_push_to_b(Stack *stack_a, Stack *stack_b, Operation *operation, int run)
+{
+	if (run == 1)
+	{
+		while (is_better_num(stack_a, stack_b, operation, run))
+		{
+			;
+		}
+	}
+	else if (run == 2)
+	{
+		while (is_better_num(stack_a, stack_b, operation, run))
+		{
+			;
+		}
+	}
+	return;
+}
+
 /*
 create first run with min on top
 	size = n % 2 == 0 ? n/2 : n/2 + 1
 	while stack_b_size < size
-		take max (among two top nums and one bottom num)
+		find num closest to b_top
+			while is_better_num_for_b_top
+				move the num to a_top
 		insert in place
 	while (B-top is not min)
 		if (min position < size / 2)
@@ -228,8 +306,9 @@ void create_first_run(Stack *stack_a, Stack *stack_b, Operation *operation)
 	size = (stack_a->size % 2 == 0) ? (stack_a->size / 2) : (stack_a->size / 2 + 1);
 	while (stack_b->size <= size)
 	{
-		place_max_num_on_top('a', stack_a, operation);
-		execute_operation(stack_a, stack_b, operation);
+		// place_max_num_on_top('a', stack_a, operation);
+		// execute_operation(stack_a, stack_b, operation);
+		find_num_to_push_to_b(stack_a, stack_b, operation, 1);
 		find_insertion_place(stack_a->top->num, stack_b, operation);
 		if (stack_b->min->num > stack_a->top->num)
 			stack_b->min = stack_a->top;
@@ -249,10 +328,13 @@ void create_second_run(Stack *stack_a, Stack *stack_b, Operation *operation)
 	int size;
 
 	size = (stack_a->size % 2 == 0) ? (stack_a->size / 2) : (stack_a->size / 2 + 1);
+	if (VERBOSE)
+		printf("creating second run:\n");
 	while (stack_b->size <= size)
 	{
-		if (stack_a->top->num < stack_a->top->next->num)
-			swap_a(stack_a, stack_b, operation);
+		// if (stack_a->top->num < stack_a->top->next->num)
+		// 	swap_a(stack_a, stack_b, operation);
+		find_num_to_push_to_b(stack_a, stack_b, operation, 2);
 		find_insertion_place(stack_a->top->num, stack_b, operation);
 		if (stack_b->min->num > stack_a->top->num)
 			stack_b->min = stack_a->top;
@@ -349,6 +431,8 @@ find A-closest to B-next or B-bottom
 
 void merge_a_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
+	if (VERBOSE)
+		printf("merging:\n");
 	while (stack_b->top->num > stack_a->top->num &&
 				 stack_b->top->num > stack_a->top->next->num &&
 				 stack_b->top->num > stack_a->top->next->next->num)
@@ -381,66 +465,28 @@ void merge_a_b(Stack *stack_a, Stack *stack_b, Operation *operation)
 	return;
 }
 
+void set_initial_stack_b(Stack *stack_a, Stack *stack_b, Operation *operation)
+{
+	push_b(stack_a, stack_b, operation);
+	stack_b->min = stack_b->top;
+	return;
+}
+
 /*
-push_max_to_b
-	find_max
-		compare top next bottom
-	bring max to front
-		if max is next - sa
-		if max is bottom - rra
-	pb
-push_max_to_b
-push_max_to_b
-
-sort 3 nums of stack_b
-create first run with min on top
-	size = n % 2 == 0 ? n/2 : n/2 + 1
-	while stack_b_size < size
-		take max (among two top nums and one bottom num)
-		insert in place
-	while (B-top is not min)
-		if (min position < size / 2)
-			rb
-		else
-			rrb
-	while (B-top != NULL)
-		pa
-
-create second run with min on top
-	size = n/2
-	while stack_b_size < size
-		take max (among first two top nums)
-		insert in place
-	while (B-top is not min)
-		if (min position < size / 2)
-			rb
-		else
-			rrb
-merge two runs
+	set stack_b
+		push_b
+		min->num = stack_b->top
+	create first run
+	set stack_b
+	create second run
+	merge
 */
 
 void sort(Stack *stack_a, Stack *stack_b, Operation *operation)
 {
-	push_max_num_to_b(stack_a, stack_b, operation);
-	push_max_num_to_b(stack_a, stack_b, operation);
-	push_max_num_to_b(stack_a, stack_b, operation);
-	sort_three_nums('b', stack_b, operation);
+	set_initial_stack_b(stack_a, stack_b, operation);
 	create_first_run(stack_a, stack_b, operation);
-
-	// three max nums to b
-	if (stack_a->top->num < stack_a->top->next->num)
-		swap_a(stack_a, stack_b, operation);
-	push_b(stack_a, stack_b, operation);
-	if (stack_a->top->num < stack_a->top->next->num)
-		swap_a(stack_a, stack_b, operation);
-	push_b(stack_a, stack_b, operation);
-	if (stack_a->top->num < stack_a->top->next->num)
-		swap_a(stack_a, stack_b, operation);
-	push_b(stack_a, stack_b, operation);
-
-	sort_three_nums('b', stack_b, operation);
-	stack_b->min = stack_b->top;
-
+	set_initial_stack_b(stack_a, stack_b, operation);
 	create_second_run(stack_a, stack_b, operation);
 	merge_a_b(stack_a, stack_b, operation);
 	return;
