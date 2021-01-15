@@ -43,6 +43,6 @@ Operations to use for sorting:
 - **rrr** : **rra** and **rrb** at the same time.
 
 ## Note
-Khan Academy - [Algorithms course](https://www.khanacademy.org/computing/computer-science/algorithms)
-Wikipedia - [Analysis of Algorithms](https://en.wikipedia.org/wiki/Analysis_of_algorithms)
+Khan Academy - [Algorithms course](https://www.khanacademy.org/computing/computer-science/algorithms)<br>
+Wikipedia - [Analysis of Algorithms](https://en.wikipedia.org/wiki/Analysis_of_algorithms)<br>
 This project is not finished.
